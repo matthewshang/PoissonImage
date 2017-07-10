@@ -26,6 +26,7 @@ public class Solver
     private int[] m_D;
     private int[][] m_R;
     private double[][] m_x;
+    private double[][] m_nextX;
     private double[][] m_b;
 
     public Solver(BufferedImage targetImage, BufferedImage cutImage, ArrayList<Point2> cutPoints, int[][] mask,
@@ -43,6 +44,7 @@ public class Solver
         m_D = new int[m_n];
         m_R = new int[m_n][4];
         m_x = new double[m_n][3];
+        m_nextX = new double[m_n][3];
         m_b = new double[m_n][3];
 
         initMatrix();
@@ -131,45 +133,39 @@ public class Solver
 
     private void iterate()
     {
-        double[][] next = new double[m_n][3];
         for (int i = 0; i < m_n; i++)
         {
-            next[i][0] = m_b[i][0];
-            next[i][1] = m_b[i][1];
-            next[i][2] = m_b[i][2];
+            m_nextX[i][0] = m_b[i][0];
+            m_nextX[i][1] = m_b[i][1];
+            m_nextX[i][2] = m_b[i][2];
 
             for (int j = 0; j < 4; j++)
             {
                 if (m_R[i][j] > -1)
                 {
                     int idx = m_R[i][j];
-                    next[i][0] += m_x[idx][0];
-                    next[i][1] += m_x[idx][1];
-                    next[i][2] += m_x[idx][2];
+                    m_nextX[i][0] += m_x[idx][0];
+                    m_nextX[i][1] += m_x[idx][1];
+                    m_nextX[i][2] += m_x[idx][2];
                 }
             }
             double invD = 1.0 / (double)m_D[i];
-            next[i][0] *= invD;
-            next[i][1] *= invD;
-            next[i][2] *= invD;
+            m_nextX[i][0] *= invD;
+            m_nextX[i][1] *= invD;
+            m_nextX[i][2] *= invD;
         }
 
         for (int i = 0; i < m_n; i++)
         {
-            m_x[i] = next[i];
+            m_x[i] = m_nextX[i];
         }
     }
 
     public void run()
     {
-//        for (int i = 0; i < 100000; i++)
-//        {
-//            iterate();
-//        }
-//        System.out.println(getError());
         long start = System.nanoTime();
         int i = 0;
-        double error = 2.0;
+        double error = 0.0;
         do
         {
             error = getError();
@@ -182,8 +178,9 @@ public class Solver
         {
             System.out.println("Convergence error: " + error);
         }
-        System.out.println("Solve time: " + (System.nanoTime() - start) / 1e9 + "s");
-
+        double time = (System.nanoTime() - start) / 1e9;
+        System.out.println("Solve time: " + time + "s");
+        System.out.println("Pixels blended: " + m_n);
     }
 
     public void updateTarget()

@@ -340,6 +340,9 @@ class PoissonImagePanel extends JPanel
                 }
                 if (e.getKeyCode() == KeyEvent.VK_S)
                 {
+                    clearMask();
+                    getCutAreaPoints();
+                    getCutImage();
                     Solver solver = new Solver(m_targetImage, m_cutImage, m_cutPoints, m_mask, m_imageX, m_imageY);
                     solver.run();
                     solver.updateTarget();
