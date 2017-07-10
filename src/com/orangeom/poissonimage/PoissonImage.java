@@ -233,16 +233,16 @@ class PoissonImagePanel extends JPanel
 //        InputStream targetStream = PoissonImage.class.getResourceAsStream("/red.png");
 //        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/gray.png");
 //        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/words.jpg");
-        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/obama.jpg");
+//        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/obama.jpg");
 
 
 
-//        InputStream targetStream = PoissonImage.class.getResourceAsStream("/sky.jpg");
+        InputStream targetStream = PoissonImage.class.getResourceAsStream("/sky.jpg");
 //        InputStream targetStream = PoissonImage.class.getResourceAsStream("/brick.jpg");
-        InputStream targetStream = PoissonImage.class.getResourceAsStream("/photo.jpg");
+//        InputStream targetStream = PoissonImage.class.getResourceAsStream("/photo.jpg");
 
 
-//        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/jet.jpg");
+        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/jet.jpg");
 //        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/balloon.jpg");
 
 

@@ -27,6 +27,7 @@ public class Solver
     private int[][] m_R;
     private double[][] m_x;
     private double[][] m_nextX;
+    private double [][] m_prevX;
     private double[][] m_b;
 
     public Solver(BufferedImage targetImage, BufferedImage cutImage, ArrayList<Point2> cutPoints, int[][] mask,
@@ -45,6 +46,7 @@ public class Solver
         m_R = new int[m_n][4];
         m_x = new double[m_n][3];
         m_nextX = new double[m_n][3];
+        m_prevX = new double[m_n][3];
         m_b = new double[m_n][3];
 
         initMatrix();
@@ -131,7 +133,7 @@ public class Solver
         return Math.sqrt(totalE);
     }
 
-    private void iterate()
+    private void iterateJacobi()
     {
         for (int i = 0; i < m_n; i++)
         {
@@ -161,6 +163,36 @@ public class Solver
         }
     }
 
+    private void iterateRelax()
+    {
+        // http://disq.us/p/hvps4v
+        double omega = 1.95;
+        for (int i = 0; i < m_n; i++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                m_prevX[i][k] = m_x[i][k];
+                m_x[i][k] = m_b[i][k];
+            }
+
+            for (int n = 0; n < 4; n++)
+            {
+                if (m_R[i][n] > -1)
+                {
+                    int idx = m_R[i][n];
+                    m_x[i][0] += m_x[idx][0];
+                    m_x[i][1] += m_x[idx][1];
+                    m_x[i][2] += m_x[idx][2];
+                }
+            }
+
+            for (int k = 0; k < 3; k++)
+            {
+                m_x[i][k] = m_prevX[i][k] + omega * (m_x[i][k] / m_D[i] - m_prevX[i][k]);
+            }
+        }
+    }
+
     public void run()
     {
         long start = System.nanoTime();
@@ -170,7 +202,7 @@ public class Solver
         {
             error = getError();
             i++;
-            iterate();
+            iterateRelax();
         }
         while (error > 1.0 && i < MAX_ITERATIONS);
 
