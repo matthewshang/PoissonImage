@@ -18,17 +18,25 @@
       <file leaf-file-name="PoissonImage.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/orangeom/poissonimage/PoissonImage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="676">
-              <caret line="420" column="75" lean-forward="true" selection-start-line="420" selection-start-column="75" selection-end-line="420" selection-end-column="75" />
+            <state relative-caret-position="1336">
+              <caret line="565" column="0" lean-forward="true" selection-start-line="565" selection-start-column="0" selection-end-line="565" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#359#360#0" expanded="true" />
-                <element signature="e#418#419#0" expanded="true" />
-                <element signature="e#8640#9968#0" expanded="true" />
-                <element signature="e#9967#9968#0" expanded="true" />
-                <element signature="e#13205#13206#0" expanded="true" />
-                <element signature="e#13253#13254#0" expanded="true" />
+                <element signature="e#400#401#0" expanded="true" />
+                <element signature="e#459#460#0" expanded="true" />
+                <element signature="e#14787#14788#0" expanded="true" />
+                <element signature="e#14835#14836#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="KeyStroke.java" pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/javax/swing/KeyStroke.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="592">
+              <caret line="248" column="32" lean-forward="true" selection-start-line="248" selection-start-column="32" selection-end-line="248" selection-end-column="32" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -36,8 +44,8 @@
       <file leaf-file-name="Solver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/orangeom/poissonimage/Solver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5874">
-              <caret line="208" column="30" lean-forward="true" selection-start-line="208" selection-start-column="30" selection-end-line="208" selection-end-column="30" />
+            <state relative-caret-position="1204">
+              <caret line="47" column="33" lean-forward="true" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1362#1363#0" expanded="true" />
@@ -77,6 +85,7 @@
       <find>next</find>
       <find>m_nextX</find>
       <find>m_next</find>
+      <find>System.out.println</find>
     </findStrings>
     <replaceStrings>
       <replace>m_next</replace>
@@ -493,12 +502,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#359#360#0" expanded="true" />
-            <element signature="e#418#419#0" expanded="true" />
-            <element signature="e#8640#9968#0" expanded="true" />
-            <element signature="e#9967#9968#0" expanded="true" />
-            <element signature="e#13205#13206#0" expanded="true" />
-            <element signature="e#13253#13254#0" expanded="true" />
+            <element signature="e#400#401#0" expanded="true" />
+            <element signature="e#459#460#0" expanded="true" />
+            <element signature="e#14787#14788#0" expanded="true" />
+            <element signature="e#14835#14836#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -562,10 +569,42 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/orangeom/poissonimage/PoissonState.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/lang/Runnable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1217">
+          <caret line="67" column="25" lean-forward="false" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/awt/event/ActionListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="858">
+          <caret line="49" column="16" lean-forward="false" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/awt/AWTKeyStroke.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="248" column="45" lean-forward="false" selection-start-line="248" selection-start-column="45" selection-end-line="248" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/javax/swing/KeyStroke.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="592">
+          <caret line="248" column="32" lean-forward="true" selection-start-line="248" selection-start-column="32" selection-end-line="248" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/orangeom/poissonimage/Solver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5874">
-          <caret line="208" column="30" lean-forward="true" selection-start-line="208" selection-start-column="30" selection-end-line="208" selection-end-column="30" />
+        <state relative-caret-position="1204">
+          <caret line="47" column="33" lean-forward="true" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1362#1363#0" expanded="true" />
@@ -578,26 +617,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/lang/Runnable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1217">
-          <caret line="67" column="25" lean-forward="false" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/orangeom/poissonimage/PoissonImage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="676">
-          <caret line="420" column="75" lean-forward="true" selection-start-line="420" selection-start-column="75" selection-end-line="420" selection-end-column="75" />
+        <state relative-caret-position="1336">
+          <caret line="565" column="0" lean-forward="true" selection-start-line="565" selection-start-column="0" selection-end-line="565" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#359#360#0" expanded="true" />
-            <element signature="e#418#419#0" expanded="true" />
-            <element signature="e#8640#9968#0" expanded="true" />
-            <element signature="e#9967#9968#0" expanded="true" />
-            <element signature="e#13205#13206#0" expanded="true" />
-            <element signature="e#13253#13254#0" expanded="true" />
+            <element signature="e#400#401#0" expanded="true" />
+            <element signature="e#459#460#0" expanded="true" />
+            <element signature="e#14787#14788#0" expanded="true" />
+            <element signature="e#14835#14836#0" expanded="true" />
           </folding>
         </state>
       </provider>

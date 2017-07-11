@@ -9,6 +9,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import static sun.misc.Version.println;
+
 /**
  * Created by matthew on 6/28/2017.
  */
@@ -36,7 +38,7 @@ enum PoissonState
     DRAGGING, BORDER
 }
 
-class PoissonImagePanel extends JPanel implements ActionListener
+class PoissonImagePanel extends JPanel implements ActionListener, ItemListener
 {
     private static final int MASK_INSIDE = -1;
     private static final int MASK_BORDER = -2;
@@ -59,7 +61,8 @@ class PoissonImagePanel extends JPanel implements ActionListener
     private BufferedImage m_sourceImage = null;
     private BufferedImage m_cutImage = null;
 
-    private PoissonState m_state = PoissonState.DRAGGING;
+    private PoissonState m_state;
+    private boolean m_showCutImage = true;
 
     private JFileChooser m_fileChooser;
 
@@ -255,6 +258,8 @@ class PoissonImagePanel extends JPanel implements ActionListener
         m_fileChooser = new JFileChooser();
         m_fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
+        m_state = PoissonState.DRAGGING;
+
         addMouseMotionListener(new MouseAdapter()
         {
             @Override
@@ -302,38 +307,20 @@ class PoissonImagePanel extends JPanel implements ActionListener
             @Override
             public void keyPressed(KeyEvent e)
             {
-                System.out.println(e.getKeyChar());
-                if (e.getKeyCode() == KeyEvent.VK_B)
+                if (e.getKeyCode() == KeyEvent.VK_CONTROL)
                 {
                     m_state = PoissonState.BORDER;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_D)
+                repaint();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e)
+            {
+                if (e.getKeyCode() == KeyEvent.VK_CONTROL)
                 {
                     m_state = PoissonState.DRAGGING;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_C)
-                {
-                    m_cutImage = null;
-                    clearMask();
-                    m_borderPoints.clear();
-                    m_cutPoints.clear();
-                }
-                if (e.getKeyCode() == KeyEvent.VK_F)
-                {
-                    clearMask();
-                    getCutAreaPoints();
-                    getCutImage();
-                }
-                if (e.getKeyCode() == KeyEvent.VK_S)
-                {
-                    clearMask();
-                    getCutAreaPoints();
-                    getCutImage();
-                    Solver solver = new Solver(m_targetImage, m_cutImage, m_cutPoints, m_mask, m_imageX, m_imageY);
-                    solver.run();
-                    solver.updateTarget();
-                }
-
                 repaint();
             }
         });
@@ -344,6 +331,7 @@ class PoissonImagePanel extends JPanel implements ActionListener
         JMenuBar menuBar;
         JMenu menu;
         JMenuItem menuItem;
+        JCheckBoxMenuItem cbMenuItem;
 
         menuBar = new JMenuBar();
         menu = new JMenu("File");
@@ -362,14 +350,40 @@ class PoissonImagePanel extends JPanel implements ActionListener
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         menu.add(menuItem);
 
+        menu = new JMenu("Edit");
+        menuBar.add(menu);
+
+        cbMenuItem = new JCheckBoxMenuItem("Show image", true);
+        cbMenuItem.addItemListener(this);
+        cbMenuItem.setMnemonic(KeyEvent.VK_I);
+        cbMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
+        menu.add(cbMenuItem);
+
+        menuItem = new JMenuItem("Reset image position");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+
+        menuItem = new JMenuItem("Clear image", KeyEvent.VK_R);
+        menuItem.addActionListener(this);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
+        menu.add(menuItem);
+
+        menuItem = new JMenuItem("Cut image", KeyEvent.VK_E);
+        menuItem.addActionListener(this);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
+        menu.add(menuItem);
+
+        menuItem = new JMenuItem("Blend", KeyEvent.VK_B);
+        menuItem.addActionListener(this);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, ActionEvent.CTRL_MASK));
+        menu.add(menuItem);
+
         return menuBar;
     }
 
     public void actionPerformed(ActionEvent e)
     {
         JMenuItem source = (JMenuItem)(e.getSource());
-        System.out.println(source.getText());
-
         if ("Select target image".equals(source.getText()))
         {
             int ret = m_fileChooser.showOpenDialog(PoissonImagePanel.this);
@@ -437,6 +451,43 @@ class PoissonImagePanel extends JPanel implements ActionListener
                 }
             }
         }
+        if ("Reset image position".equals(source.getText()))
+        {
+            m_imageX = 0;
+            m_imageY = 0;
+        }
+        if ("Clear image".equals(source.getText()))
+        {
+            m_cutImage = null;
+            clearMask();
+            m_borderPoints.clear();
+            m_cutPoints.clear();
+        }
+        if ("Cut image".equals(source.getText()))
+        {
+            clearMask();
+            getCutAreaPoints();
+            getCutImage();
+        }
+        if ("Blend".equals(source.getText()))
+        {
+            clearMask();
+            getCutAreaPoints();
+            getCutImage();
+            Solver solver = new Solver(m_targetImage, m_cutImage, m_cutPoints, m_mask, m_imageX, m_imageY);
+            solver.run();
+            solver.updateTarget();
+        }
+        repaint();
+    }
+
+    public void itemStateChanged(ItemEvent e)
+    {
+        JCheckBoxMenuItem source = (JCheckBoxMenuItem)(e.getSource());
+        if ("Show image".equals(source.getText()))
+        {
+            m_showCutImage = !m_showCutImage;
+        }
         repaint();
     }
 
@@ -494,16 +545,19 @@ class PoissonImagePanel extends JPanel implements ActionListener
     {
         super.paintComponent(g);
         g.drawImage(m_targetImage, 0, 0, this);
-        displayMask(g);
+//        displayMask(g);
 
-        if (m_cutImage != null)
+        if (m_showCutImage)
         {
-            g.drawImage(m_cutImage, m_imageX, m_imageY, this);
-        }
-        else
-        {
-            g.drawImage(m_sourceImage, m_imageX, m_imageY, this);
-            paintImageBorder(g);
+            if (m_cutImage != null)
+            {
+                g.drawImage(m_cutImage, m_imageX, m_imageY, this);
+            }
+            else
+            {
+                g.drawImage(m_sourceImage, m_imageX, m_imageY, this);
+                paintImageBorder(g);
+            }
         }
 
 //        paintArea(g);
