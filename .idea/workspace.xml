@@ -18,12 +18,16 @@
       <file leaf-file-name="PoissonImage.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/orangeom/poissonimage/PoissonImage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1006">
-              <caret line="412" column="51" lean-forward="true" selection-start-line="412" selection-start-column="51" selection-end-line="412" selection-end-column="51" />
+            <state relative-caret-position="676">
+              <caret line="420" column="75" lean-forward="true" selection-start-line="420" selection-start-column="75" selection-end-line="420" selection-end-column="75" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#9358#10686#0" expanded="true" />
-                <element signature="e#10685#10686#0" expanded="true" />
+                <element signature="e#359#360#0" expanded="true" />
+                <element signature="e#418#419#0" expanded="true" />
+                <element signature="e#8640#9968#0" expanded="true" />
+                <element signature="e#9967#9968#0" expanded="true" />
+                <element signature="e#13205#13206#0" expanded="true" />
+                <element signature="e#13253#13254#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -489,8 +493,12 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#9358#10686#0" expanded="true" />
-            <element signature="e#10685#10686#0" expanded="true" />
+            <element signature="e#359#360#0" expanded="true" />
+            <element signature="e#418#419#0" expanded="true" />
+            <element signature="e#8640#9968#0" expanded="true" />
+            <element signature="e#9967#9968#0" expanded="true" />
+            <element signature="e#13205#13206#0" expanded="true" />
+            <element signature="e#13253#13254#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -523,13 +531,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="2" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/lang/Runnable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="723">
-          <caret line="62" column="31" lean-forward="true" selection-start-line="62" selection-start-column="31" selection-end-line="62" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -577,14 +578,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/lang/Runnable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1217">
+          <caret line="67" column="25" lean-forward="false" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/orangeom/poissonimage/PoissonImage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1006">
-          <caret line="412" column="51" lean-forward="true" selection-start-line="412" selection-start-column="51" selection-end-line="412" selection-end-column="51" />
+        <state relative-caret-position="676">
+          <caret line="420" column="75" lean-forward="true" selection-start-line="420" selection-start-column="75" selection-end-line="420" selection-end-column="75" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#9358#10686#0" expanded="true" />
-            <element signature="e#10685#10686#0" expanded="true" />
+            <element signature="e#359#360#0" expanded="true" />
+            <element signature="e#418#419#0" expanded="true" />
+            <element signature="e#8640#9968#0" expanded="true" />
+            <element signature="e#9967#9968#0" expanded="true" />
+            <element signature="e#13205#13206#0" expanded="true" />
+            <element signature="e#13253#13254#0" expanded="true" />
           </folding>
         </state>
       </provider>

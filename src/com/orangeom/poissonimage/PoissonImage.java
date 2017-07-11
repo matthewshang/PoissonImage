@@ -16,12 +16,7 @@ public class PoissonImage
 {
     public static void main(String[] args)
     {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run()
-            {
-                initGUI();
-            }
-        });
+        SwingUtilities.invokeLater(() -> initGUI());
     }
 
     private static void initGUI()
@@ -230,20 +225,9 @@ class PoissonImagePanel extends JPanel implements ActionListener
 
     public PoissonImagePanel()
     {
-//        InputStream targetStream = PoissonImage.class.getResourceAsStream("/red.png");
-//        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/gray.png");
-        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/words.jpg");
-//        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/obama.jpg");
+        InputStream targetStream = PoissonImage.class.getResourceAsStream("/Tropical-Island-2.jpg");
+        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/rainbow.jpg");
 
-
-
-//        InputStream targetStream = PoissonImage.class.getResourceAsStream("/sky.jpg");
-        InputStream targetStream = PoissonImage.class.getResourceAsStream("/brick.jpg");
-//        InputStream targetStream = PoissonImage.class.getResourceAsStream("/photo.jpg");
-
-
-//        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/jet.jpg");
-//        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/balloon.jpg");
 
         try
         {
@@ -359,19 +343,24 @@ class PoissonImagePanel extends JPanel implements ActionListener
     {
         JMenuBar menuBar;
         JMenu menu;
-        JMenuItem targetItem, sourceItem;
+        JMenuItem menuItem;
 
         menuBar = new JMenuBar();
         menu = new JMenu("File");
         menuBar.add(menu);
 
-        targetItem = new JMenuItem("Select target image");
-        targetItem.addActionListener(this);
-        menu.add(targetItem);
+        menuItem = new JMenuItem("Select target image");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
 
-        sourceItem = new JMenuItem("Select source image");
-        sourceItem.addActionListener(this);
-        menu.add(sourceItem);
+        menuItem = new JMenuItem("Select source image");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+
+        menuItem = new JMenuItem("Save", KeyEvent.VK_S);
+        menuItem.addActionListener(this);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+        menu.add(menuItem);
 
         return menuBar;
     }
@@ -401,10 +390,6 @@ class PoissonImagePanel extends JPanel implements ActionListener
                     ex.printStackTrace();
                 }
             }
-            else
-            {
-                System.out.println(("Open command cancelled"));
-            }
         }
         if ("Select source image".equals(source.getText()))
         {
@@ -418,6 +403,8 @@ class PoissonImagePanel extends JPanel implements ActionListener
                     m_sourceImage = ImageIO.read(file);
                     m_imageW = m_sourceImage.getWidth();
                     m_imageH = m_sourceImage.getHeight();
+                    m_imageX = 0;
+                    m_imageY = 0;
                     m_borderPoints = new ArrayList<>();
                     m_cutPoints = new ArrayList<>();
                     m_cutImage = null;
@@ -428,9 +415,26 @@ class PoissonImagePanel extends JPanel implements ActionListener
                     ex.printStackTrace();
                 }
             }
-            else
+        }
+        if ("Save".equals(source.getText()))
+        {
+            int ret = m_fileChooser.showSaveDialog(PoissonImagePanel.this);
+
+            if (ret == JFileChooser.APPROVE_OPTION)
             {
-                System.out.println(("Open command cancelled"));
+                File file = m_fileChooser.getSelectedFile();
+                if (!file.toString().endsWith(".png"))
+                {
+                    file = new File(file + ".png");
+                }
+                try
+                {
+                    ImageIO.write(m_targetImage, "png", file);
+                }
+                catch (IOException ex)
+                {
+                    ex.printStackTrace();
+                }
             }
         }
         repaint();
@@ -438,7 +442,7 @@ class PoissonImagePanel extends JPanel implements ActionListener
 
     public Dimension getPreferredSize()
     {
-        return new Dimension(1920, 1080);
+        return new Dimension(3840, 2160);
     }
 
     protected void paintImageBorder(Graphics g)
