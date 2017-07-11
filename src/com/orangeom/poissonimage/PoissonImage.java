@@ -3,13 +3,9 @@ package com.orangeom.poissonimage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -32,7 +28,9 @@ public class PoissonImage
     {
         JFrame f = new JFrame("PoissonImage");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.add(new PoissonImagePanel());
+        PoissonImagePanel panel = new PoissonImagePanel();
+        f.add(panel);
+        f.setJMenuBar(panel.getMenuBar());
         f.pack();
         f.setVisible(true);
     }
@@ -43,7 +41,7 @@ enum PoissonState
     DRAGGING, BORDER
 }
 
-class PoissonImagePanel extends JPanel
+class PoissonImagePanel extends JPanel implements ActionListener
 {
     private static final int MASK_INSIDE = -1;
     private static final int MASK_BORDER = -2;
@@ -67,6 +65,8 @@ class PoissonImagePanel extends JPanel
     private BufferedImage m_cutImage = null;
 
     private PoissonState m_state = PoissonState.DRAGGING;
+
+    private JFileChooser m_fileChooser;
 
     private boolean pointInImage(int x, int y)
     {
@@ -245,7 +245,6 @@ class PoissonImagePanel extends JPanel
 //        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/jet.jpg");
 //        InputStream sourceStream = PoissonImage.class.getResourceAsStream("/balloon.jpg");
 
-
         try
         {
             m_targetImage = ImageIO.read(targetStream);
@@ -268,6 +267,9 @@ class PoissonImagePanel extends JPanel
         setBorder(BorderFactory.createLineBorder(Color.black));
         setFocusable(true);
         requestFocusInWindow();
+
+        m_fileChooser = new JFileChooser();
+        m_fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
         addMouseMotionListener(new MouseAdapter()
         {
@@ -351,6 +353,87 @@ class PoissonImagePanel extends JPanel
                 repaint();
             }
         });
+    }
+
+    public JMenuBar getMenuBar()
+    {
+        JMenuBar menuBar;
+        JMenu menu;
+        JMenuItem targetItem, sourceItem;
+
+        menuBar = new JMenuBar();
+        menu = new JMenu("File");
+        menuBar.add(menu);
+
+        targetItem = new JMenuItem("Select target image");
+        targetItem.addActionListener(this);
+        menu.add(targetItem);
+
+        sourceItem = new JMenuItem("Select source image");
+        sourceItem.addActionListener(this);
+        menu.add(sourceItem);
+
+        return menuBar;
+    }
+
+    public void actionPerformed(ActionEvent e)
+    {
+        JMenuItem source = (JMenuItem)(e.getSource());
+        System.out.println(source.getText());
+
+        if ("Select target image".equals(source.getText()))
+        {
+            int ret = m_fileChooser.showOpenDialog(PoissonImagePanel.this);
+
+            if (ret == JFileChooser.APPROVE_OPTION)
+            {
+                File file = m_fileChooser.getSelectedFile();
+                try
+                {
+                    m_targetImage = ImageIO.read(file);
+                    m_maskW = m_targetImage.getWidth();
+                    m_maskH = m_targetImage.getHeight();
+                    m_mask = new int[m_maskW][m_maskH];
+                    clearMask();
+                }
+                catch (IOException ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
+            else
+            {
+                System.out.println(("Open command cancelled"));
+            }
+        }
+        if ("Select source image".equals(source.getText()))
+        {
+            int ret = m_fileChooser.showOpenDialog(PoissonImagePanel.this);
+
+            if (ret == JFileChooser.APPROVE_OPTION)
+            {
+                File file = m_fileChooser.getSelectedFile();
+                try
+                {
+                    m_sourceImage = ImageIO.read(file);
+                    m_imageW = m_sourceImage.getWidth();
+                    m_imageH = m_sourceImage.getHeight();
+                    m_borderPoints = new ArrayList<>();
+                    m_cutPoints = new ArrayList<>();
+                    m_cutImage = null;
+                    clearMask();
+                }
+                catch (IOException ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
+            else
+            {
+                System.out.println(("Open command cancelled"));
+            }
+        }
+        repaint();
     }
 
     public Dimension getPreferredSize()
