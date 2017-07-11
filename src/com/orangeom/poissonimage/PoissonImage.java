@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -55,9 +57,10 @@ class PoissonImagePanel extends JPanel implements ActionListener, ItemListener
     private ArrayList<Point2> m_cutPoints;
     private int[][] m_mask;
 
-    private BufferedImage m_targetImage = null;
-    private BufferedImage m_sourceImage = null;
-    private BufferedImage m_cutImage = null;
+    private BufferedImage m_targetImage;
+    private BufferedImage m_targetBackup;
+    private BufferedImage m_sourceImage;
+    private BufferedImage m_cutImage;
 
     private PoissonState m_state;
     private boolean m_showCutImage = true;
@@ -225,6 +228,15 @@ class PoissonImagePanel extends JPanel implements ActionListener, ItemListener
         }
     }
 
+    // https://stackoverflow.com/a/3514297
+    static BufferedImage copyImage(BufferedImage b)
+    {
+        ColorModel c = b.getColorModel();
+        boolean isAlphaPremul = c.isAlphaPremultiplied();
+        WritableRaster raster = b.copyData(null);
+        return new BufferedImage(c, raster, isAlphaPremul, null);
+    }
+
     public PoissonImagePanel()
     {
         InputStream targetStream = PoissonImage.class.getResourceAsStream("/Tropical-Island-2.jpg");
@@ -241,6 +253,8 @@ class PoissonImagePanel extends JPanel implements ActionListener, ItemListener
         {
             e.printStackTrace();
         }
+
+        m_targetBackup = copyImage(m_targetImage);
 
         m_borderPoints = new ArrayList<>();
         m_cutPoints = new ArrayList<>();
@@ -361,7 +375,13 @@ class PoissonImagePanel extends JPanel implements ActionListener, ItemListener
         cbMenuItem.addItemListener(this);
         menu.add(cbMenuItem);
 
+        menu.addSeparator();
+
         menuItem = new JMenuItem("Reset image position");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+
+        menuItem = new JMenuItem("Reset target image");
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
@@ -369,6 +389,8 @@ class PoissonImagePanel extends JPanel implements ActionListener, ItemListener
         menuItem.addActionListener(this);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
         menu.add(menuItem);
+
+        menu.addSeparator();
 
         menuItem = new JMenuItem("Cut image", KeyEvent.VK_E);
         menuItem.addActionListener(this);
@@ -405,6 +427,7 @@ class PoissonImagePanel extends JPanel implements ActionListener, ItemListener
                 {
                     ex.printStackTrace();
                 }
+                m_targetBackup = copyImage(m_targetImage);
             }
         }
         if ("Select source image".equals(source.getText()))
@@ -464,6 +487,10 @@ class PoissonImagePanel extends JPanel implements ActionListener, ItemListener
             clearMask();
             m_borderPoints.clear();
             m_cutPoints.clear();
+        }
+        if ("Reset target image".equals(source.getText()))
+        {
+            m_targetImage = copyImage(m_targetBackup);
         }
         if ("Cut image".equals(source.getText()))
         {

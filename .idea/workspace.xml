@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/.gitignore" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="e30c2228-9c66-4c33-8813-03022ccec2d7" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/faceswap/markhamill.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/faceswap/mona-lisa.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/faceswap/swap.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/rainbow/tropical-rainbow.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/orangeom/poissonimage/PoissonImage.java" afterPath="$PROJECT_DIR$/src/com/orangeom/poissonimage/PoissonImage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/orangeom/poissonimage/Solver.java" afterPath="$PROJECT_DIR$/src/com/orangeom/poissonimage/Solver.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,18 +24,28 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="PoissonImage.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PoissonImage.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/orangeom/poissonimage/PoissonImage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1011">
-              <caret line="482" column="9" lean-forward="true" selection-start-line="482" selection-start-column="9" selection-end-line="482" selection-end-column="9" />
+            <state relative-caret-position="879">
+              <caret line="465" column="17" lean-forward="false" selection-start-line="465" selection-start-column="17" selection-end-line="465" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#359#360#0" expanded="true" />
-                <element signature="e#418#419#0" expanded="true" />
-                <element signature="e#15116#15117#0" expanded="true" />
-                <element signature="e#15164#15165#0" expanded="true" />
+                <element signature="e#431#432#0" expanded="true" />
+                <element signature="e#490#491#0" expanded="true" />
+                <element signature="e#15965#15966#0" expanded="true" />
+                <element signature="e#16013#16014#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="4" column="17" lean-forward="true" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -36,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/orangeom/poissonimage/Solver.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="544">
-              <caret line="113" column="39" lean-forward="true" selection-start-line="113" selection-start-column="39" selection-end-line="113" selection-end-column="39" />
+              <caret line="113" column="39" lean-forward="false" selection-start-line="113" selection-start-column="39" selection-end-line="113" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1470#1471#0" expanded="true" />
@@ -55,7 +73,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="957">
               <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
-              <folding />
+              <folding>
+                <element signature="e#451#452#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -103,6 +123,7 @@
         <option value="C:/Program Files/Java/jdk1.8.0_121/jre/lib/rt.jar!/sun/misc/Version.class" />
         <option value="$PROJECT_DIR$/src/com/orangeom/poissonimage/Solver.java" />
         <option value="$PROJECT_DIR$/src/com/orangeom/poissonimage/PoissonImage.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -495,10 +516,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#359#360#0" expanded="true" />
-            <element signature="e#418#419#0" expanded="true" />
-            <element signature="e#15116#15117#0" expanded="true" />
-            <element signature="e#15164#15165#0" expanded="true" />
+            <element signature="e#431#432#0" expanded="true" />
+            <element signature="e#490#491#0" expanded="true" />
+            <element signature="e#15965#15966#0" expanded="true" />
+            <element signature="e#16013#16014#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -523,7 +544,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="957">
           <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
-          <folding />
+          <folding>
+            <element signature="e#451#452#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -538,14 +561,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-24311">
           <caret line="151" column="13" lean-forward="false" selection-start-line="151" selection-start-column="13" selection-end-line="151" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/orangeom/poissonimage/Point2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="957">
-          <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -599,14 +614,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/awt/image/BufferedImage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="33">
-          <caret line="368" column="13" lean-forward="true" selection-start-line="368" selection-start-column="13" selection-end-line="368" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/javax/imageio/ImageWriter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2260">
@@ -634,7 +641,7 @@
     <entry file="file://$PROJECT_DIR$/src/com/orangeom/poissonimage/Solver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
-          <caret line="113" column="39" lean-forward="true" selection-start-line="113" selection-start-column="39" selection-end-line="113" selection-end-column="39" />
+          <caret line="113" column="39" lean-forward="false" selection-start-line="113" selection-start-column="39" selection-end-line="113" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1470#1471#0" expanded="true" />
@@ -647,17 +654,75 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/orangeom/poissonimage/Point2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="957">
+          <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+          <folding>
+            <element signature="e#451#452#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/awt/image/ColorModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="155" column="22" lean-forward="false" selection-start-line="155" selection-start-column="22" selection-end-line="155" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/awt/image/WritableRaster.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="48" column="42" lean-forward="false" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/awt/image/Raster.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="790">
+          <caret line="134" column="18" lean-forward="true" selection-start-line="134" selection-start-column="18" selection-end-line="134" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/awt/image/DataBuffer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-101">
+          <caret line="69" column="22" lean-forward="false" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/awt/image/BufferedImage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="1480" column="26" lean-forward="false" selection-start-line="1480" selection-start-column="26" selection-end-line="1480" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/orangeom/poissonimage/PoissonImage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1011">
-          <caret line="482" column="9" lean-forward="true" selection-start-line="482" selection-start-column="9" selection-end-line="482" selection-end-column="9" />
+        <state relative-caret-position="879">
+          <caret line="465" column="17" lean-forward="false" selection-start-line="465" selection-start-column="17" selection-end-line="465" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#359#360#0" expanded="true" />
-            <element signature="e#418#419#0" expanded="true" />
-            <element signature="e#15116#15117#0" expanded="true" />
-            <element signature="e#15164#15165#0" expanded="true" />
+            <element signature="e#431#432#0" expanded="true" />
+            <element signature="e#490#491#0" expanded="true" />
+            <element signature="e#15965#15966#0" expanded="true" />
+            <element signature="e#16013#16014#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="4" column="17" lean-forward="true" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
