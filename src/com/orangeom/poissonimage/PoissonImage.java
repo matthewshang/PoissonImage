@@ -61,6 +61,7 @@ class PoissonImagePanel extends JPanel implements ActionListener, ItemListener
 
     private PoissonState m_state;
     private boolean m_showCutImage = true;
+    private boolean m_useMixedGradients = true;
 
     private JFileChooser m_fileChooser;
 
@@ -229,7 +230,6 @@ class PoissonImagePanel extends JPanel implements ActionListener, ItemListener
         InputStream targetStream = PoissonImage.class.getResourceAsStream("/Tropical-Island-2.jpg");
         InputStream sourceStream = PoissonImage.class.getResourceAsStream("/rainbow.jpg");
 
-
         try
         {
             m_targetImage = ImageIO.read(targetStream);
@@ -357,6 +357,10 @@ class PoissonImagePanel extends JPanel implements ActionListener, ItemListener
         cbMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
         menu.add(cbMenuItem);
 
+        cbMenuItem = new JCheckBoxMenuItem("Use mixed gradients", true);
+        cbMenuItem.addItemListener(this);
+        menu.add(cbMenuItem);
+
         menuItem = new JMenuItem("Reset image position");
         menuItem.addActionListener(this);
         menu.add(menuItem);
@@ -472,7 +476,8 @@ class PoissonImagePanel extends JPanel implements ActionListener, ItemListener
             clearMask();
             getCutAreaPoints();
             getCutImage();
-            Solver solver = new Solver(m_targetImage, m_cutImage, m_cutPoints, m_mask, m_imageX, m_imageY);
+            Solver solver = new Solver(m_targetImage, m_cutImage, m_cutPoints,
+                    m_mask, m_imageX, m_imageY, m_useMixedGradients);
             solver.run();
             solver.updateTarget();
         }
@@ -485,6 +490,10 @@ class PoissonImagePanel extends JPanel implements ActionListener, ItemListener
         if ("Show image".equals(source.getText()))
         {
             m_showCutImage = !m_showCutImage;
+        }
+        if ("Use mixed gradients".equals(source.getText()))
+        {
+            m_useMixedGradients = !m_useMixedGradients;
         }
         repaint();
     }

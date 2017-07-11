@@ -26,11 +26,12 @@ public class Solver
     private int[] m_D;
     private int[][] m_R;
     private double[][] m_x;
+    private double[][] m_nextX;
     private double [][] m_prevX;
     private double[][] m_b;
 
     public Solver(BufferedImage targetImage, BufferedImage cutImage, ArrayList<Point2> cutPoints, int[][] mask,
-                  int imageX, int imageY)
+                  int imageX, int imageY, boolean mixedGradients)
     {
         m_targetImage = targetImage;
         m_cutImage = cutImage;
@@ -44,10 +45,11 @@ public class Solver
         m_D = new int[m_n];
         m_R = new int[m_n][4];
         m_x = new double[m_n][3];
+        m_nextX = new double[m_n][3];
         m_prevX = new double[m_n][3];
         m_b = new double[m_n][3];
 
-        initMatrix();
+        initMatrix(mixedGradients);
     }
 
     private int colorR(int rgb)
@@ -65,7 +67,7 @@ public class Solver
         return rgb & 0xFF;
     }
 
-    private void initMatrix()
+    private void initMatrix(boolean mixedGradients)
     {
         Point2[] neighbors = {
                 new Point2(-1, 0), new Point2(1, 0),
@@ -109,15 +111,24 @@ public class Solver
                     int gq_rgb = m_cutImage.getRGB(np.x - m_imageX, np.y - m_imageY);
                     int fq_rgb = m_targetImage.getRGB(np.x, np.y);
 
-                    int df = colorR(fp_rgb) - colorR(fq_rgb);
-                    int dg = colorR(gp_rgb) - colorR(gq_rgb);
-                    m_b[i][0] += (Math.abs(df) > Math.abs(dg)) ? df : dg;
-                    df = colorG(fp_rgb) - colorG(fq_rgb);
-                    dg = colorG(gp_rgb) - colorG(gq_rgb);
-                    m_b[i][1] += (Math.abs(df) > Math.abs(dg)) ? df : dg;
-                    df = colorB(fp_rgb) - colorB(fq_rgb);
-                    dg = colorB(gp_rgb) - colorB(gq_rgb);
-                    m_b[i][2] += (Math.abs(df) > Math.abs(dg)) ? df : dg;
+                    if (mixedGradients)
+                    {
+                        int df = colorR(fp_rgb) - colorR(fq_rgb);
+                        int dg = colorR(gp_rgb) - colorR(gq_rgb);
+                        m_b[i][0] += (Math.abs(df) > Math.abs(dg)) ? df : dg;
+                        df = colorG(fp_rgb) - colorG(fq_rgb);
+                        dg = colorG(gp_rgb) - colorG(gq_rgb);
+                        m_b[i][1] += (Math.abs(df) > Math.abs(dg)) ? df : dg;
+                        df = colorB(fp_rgb) - colorB(fq_rgb);
+                        dg = colorB(gp_rgb) - colorB(gq_rgb);
+                        m_b[i][2] += (Math.abs(df) > Math.abs(dg)) ? df : dg;
+                    }
+                    else
+                    {
+                        m_b[i][0] += colorR(gp_rgb) - colorR(gq_rgb);
+                        m_b[i][1] += colorG(gp_rgb) - colorG(gq_rgb);
+                        m_b[i][2] += colorB(gp_rgb) - colorB(gq_rgb);
+                    }
                 }
             }
 
@@ -151,6 +162,36 @@ public class Solver
             totalE += e[0] * e[0] + e[1] * e[1] + e[2] * e[2];
         }
         return Math.sqrt(totalE);
+    }
+
+    private void iterateJacobi()
+    {
+        for (int i = 0; i < m_n; i++)
+        {
+            m_nextX[i][0] = m_b[i][0];
+            m_nextX[i][1] = m_b[i][1];
+            m_nextX[i][2] = m_b[i][2];
+
+            for (int j = 0; j < 4; j++)
+            {
+                if (m_R[i][j] > -1)
+                {
+                    int idx = m_R[i][j];
+                    m_nextX[i][0] += m_x[idx][0];
+                    m_nextX[i][1] += m_x[idx][1];
+                    m_nextX[i][2] += m_x[idx][2];
+                }
+            }
+            double invD = 1.0 / (double)m_D[i];
+            m_nextX[i][0] *= invD;
+            m_nextX[i][1] *= invD;
+            m_nextX[i][2] *= invD;
+        }
+
+        for (int i = 0; i < m_n; i++)
+        {
+            m_x[i] = m_nextX[i];
+        }
     }
 
     private void iterateRelax()
