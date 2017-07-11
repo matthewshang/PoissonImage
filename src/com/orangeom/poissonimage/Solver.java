@@ -26,7 +26,6 @@ public class Solver
     private int[] m_D;
     private int[][] m_R;
     private double[][] m_x;
-    private double[][] m_nextX;
     private double [][] m_prevX;
     private double[][] m_b;
 
@@ -45,11 +44,25 @@ public class Solver
         m_D = new int[m_n];
         m_R = new int[m_n][4];
         m_x = new double[m_n][3];
-        m_nextX = new double[m_n][3];
         m_prevX = new double[m_n][3];
         m_b = new double[m_n][3];
 
         initMatrix();
+    }
+
+    private int colorR(int rgb)
+    {
+        return (rgb & 0xFF0000) >> 16;
+    }
+
+    private int colorG(int rgb)
+    {
+        return (rgb & 0xFF00) >> 8;
+    }
+
+    private int colorB(int rgb)
+    {
+        return rgb & 0xFF;
     }
 
     private void initMatrix()
@@ -57,6 +70,7 @@ public class Solver
         Point2[] neighbors = {
                 new Point2(-1, 0), new Point2(1, 0),
                 new Point2(0, -1), new Point2(0, 1)};
+
         for (int i = 0; i < m_n; i++)
         {
             m_b[i][0] = 0.0;
@@ -64,10 +78,8 @@ public class Solver
             m_b[i][2] = 0.0;
 
             Point2 p = m_cutPoints.get(i);
-            int prgb = m_cutImage.getRGB(p.x, p.y);
-            int pR = (prgb & 0xFF0000) >> 16;
-            int pG = (prgb & 0x00FF00) >> 8;
-            int pB = (prgb & 0x0000FF);
+            int gp_rgb = m_cutImage.getRGB(p.x, p.y);
+            int fp_rgb = m_targetImage.getRGB(p.x + m_imageX, p.y + m_imageY);
             int num_neighbors = 0;
             for (int j = 0; j < 4; j++)
             {
@@ -87,17 +99,25 @@ public class Solver
                 if (type == MASK_BORDER)
                 {
                     int rgb = m_targetImage.getRGB(np.x, np.y);
-                    m_b[i][0] += (rgb & 0xFF0000) >> 16;
-                    m_b[i][1] += (rgb & 0x00FF00) >> 8;
-                    m_b[i][2] += (rgb & 0x0000FF);
+                    m_b[i][0] += colorR(rgb);
+                    m_b[i][1] += colorG(rgb);
+                    m_b[i][2] += colorB(rgb);
                 }
                 else
                 {
                     m_R[i][j] = type;
-                    int rgb = m_cutImage.getRGB(np.x - m_imageX, np.y - m_imageY);
-                    m_b[i][0] += pR - ((rgb & 0xFF0000) >> 16);
-                    m_b[i][1] += pG - ((rgb & 0x00FF00) >> 8);
-                    m_b[i][2] += pB - (rgb & 0x0000FF);
+                    int gq_rgb = m_cutImage.getRGB(np.x - m_imageX, np.y - m_imageY);
+                    int fq_rgb = m_targetImage.getRGB(np.x, np.y);
+
+                    int df = colorR(fp_rgb) - colorR(fq_rgb);
+                    int dg = colorR(gp_rgb) - colorR(gq_rgb);
+                    m_b[i][0] += (Math.abs(df) > Math.abs(dg)) ? df : dg;
+                    df = colorG(fp_rgb) - colorG(fq_rgb);
+                    dg = colorG(gp_rgb) - colorG(gq_rgb);
+                    m_b[i][1] += (Math.abs(df) > Math.abs(dg)) ? df : dg;
+                    df = colorB(fp_rgb) - colorB(fq_rgb);
+                    dg = colorB(gp_rgb) - colorB(gq_rgb);
+                    m_b[i][2] += (Math.abs(df) > Math.abs(dg)) ? df : dg;
                 }
             }
 
@@ -131,36 +151,6 @@ public class Solver
             totalE += e[0] * e[0] + e[1] * e[1] + e[2] * e[2];
         }
         return Math.sqrt(totalE);
-    }
-
-    private void iterateJacobi()
-    {
-        for (int i = 0; i < m_n; i++)
-        {
-            m_nextX[i][0] = m_b[i][0];
-            m_nextX[i][1] = m_b[i][1];
-            m_nextX[i][2] = m_b[i][2];
-
-            for (int j = 0; j < 4; j++)
-            {
-                if (m_R[i][j] > -1)
-                {
-                    int idx = m_R[i][j];
-                    m_nextX[i][0] += m_x[idx][0];
-                    m_nextX[i][1] += m_x[idx][1];
-                    m_nextX[i][2] += m_x[idx][2];
-                }
-            }
-            double invD = 1.0 / (double)m_D[i];
-            m_nextX[i][0] *= invD;
-            m_nextX[i][1] *= invD;
-            m_nextX[i][2] *= invD;
-        }
-
-        for (int i = 0; i < m_n; i++)
-        {
-            m_x[i] = m_nextX[i];
-        }
     }
 
     private void iterateRelax()
@@ -213,6 +203,7 @@ public class Solver
         double time = (System.nanoTime() - start) / 1e9;
         System.out.println("Solve time: " + time + "s");
         System.out.println("Pixels blended: " + m_n);
+        System.out.println("Iterations: " + i);
     }
 
     public void updateTarget()
